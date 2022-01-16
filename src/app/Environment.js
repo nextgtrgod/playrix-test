@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import Stairs from './Stairs.js'
 
 const objects = [
 	{
@@ -60,5 +61,9 @@ export default class Environment {
 
 			this.container.addChild(this.objects[name])
 		})
+
+		this.stairs = new Stairs()
+		const index = this.container.getChildIndex(this.objects['plantFront'])
+		this.container.addChildAt(this.stairs.container, index)
 	}
 }

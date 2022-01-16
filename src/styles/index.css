@@ -22,6 +22,10 @@ body.loading #loader {
 	bottom: 0;
 	background-color: #232323;
 	opacity: 0;
-	transition: opacity .3s;
+	transition: opacity .1s;
 	pointer-events: none;
+}
+
+#scene {
+	width: 100%;
 }

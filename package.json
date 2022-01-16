@@ -22,6 +22,7 @@
     "@pixi/settings": "^6.2.1",
     "@pixi/ticker": "^6.2.1",
     "@pixi/utils": "^6.2.1",
+    "gsap": "^3.9.1",
     "pixi.js": "^6.2.1"
   }
 }
