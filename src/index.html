@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#28D223">
+	<title>Playrix Test</title>
+	<style>
+		html, body {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			background-color: #232323;
+			overflow: hidden;
+		}
+
+		body.loading #loader {
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		#loader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #232323;
+			opacity: 0;
+			transition: opacity .2s;
+			pointer-events: none;
+		}
+	</style>
+</head>
+<body class="loading">
+	<canvas id="scene"></canvas>
+	<div id="loader"></div>
+	<script type="module" src="./main.js"></script>
+</body>
+</html>

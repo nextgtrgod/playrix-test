@@ -1,0 +1,27 @@
+{
+  "name": "playrix-test",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^7.2.3",
+    "vite": "^2.7.2",
+    "vite-plugin-full-reload": "^1.0.0"
+  },
+  "dependencies": {
+    "@pixi/app": "^6.2.1",
+    "@pixi/constants": "^6.2.1",
+    "@pixi/core": "^6.2.1",
+    "@pixi/loaders": "^6.2.1",
+    "@pixi/math": "^6.2.1",
+    "@pixi/runner": "^6.2.1",
+    "@pixi/settings": "^6.2.1",
+    "@pixi/ticker": "^6.2.1",
+    "@pixi/utils": "^6.2.1",
+    "pixi.js": "^6.2.1"
+  }
+}
