@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABIFBMVEUAAAAAtQAp0iIAmQAn0iMo0iMn0iIn0iMn0iMAmQAo0yIn0iMpzxso0iMo0iMo0iMo0iMo0iMAmQAAmQAn0iMo0iMAmwAp0yMm0CYYuhgNqQ0m2iYAmQAo0iMo0iIAmQAAmAAn0iMAmQAo0iIAmQAp0yMn0yQAmQAn0iEp0SMp0yMo1CQUtBIo0yMexBoAmQAo0iMVthIAmgAAmQAn0iMAmQAo0iMp0yQAmgAn0SQAmAAAmQAo0iP///8AmQD8/fyp7afq++mI5oUs0yfv/O/Z99iwsLCT6JFi3l5d3VlW3FJR20051jQy1C0enRoXeRTn5+fg4ODg+N/J9MjB8r+x76+cnJx9fX195Hp343R24nNxcXFRUVFD2D891zgPDw8Ys0q+AAAAPHRSTlMAAnfunDz3z7WpjzUJ+t3VvqikiYhrMx0aFw8G8+bDurOvlYZ2V1ZSRCwoIPPr4NXHx6GRgntoXVtONCPCFYJOAAABZ0lEQVQ4y33S13KCQBSAYTSACthr7F2j6b2cBayxpvf6/m8RdkEXEPPfMMN+c9hhDqNV3SAdMmuLyjjfeuAqUOBcGYPIPyC6BBnx1OUANhMJnxwR46zHD5B0vkZzlwc9jpFWhzQ9sIwt8SnbcYadd9XunBrOei6Ffh4QQioFtYxk/nwYHpFWh4Icf2ECdRgjA9DOTAOC0L1/VRBS+gN1ugBxCkSAt+HvHSIpak8HbgoqAFNEe9bBMQUlABgg9PJlzJgREKMA/6IRQsNPpPdNgICPrtILANdoUaenT0hUC1n5HIM8WMQ7kLZlXBmDMJAmT4p23P8AvQMC9jCIg9FsPJr0wCjZIAJfou0HrZtbMBdkXFkMGngE6wBqDFMsnvjkKFmnHNjzGhtzeUQeHA/W/MutM6C4YxP7EmOtlbeJsMu+s/WQVQgOq895gwJU3EYpZjXBuwX0/WpcSAPu9HoQC7CtQKBte/sHDmh1bj2N3dIAAAAASUVORK5CYII=" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#28D223">
+	<title>Playrix Playable Ad</title>
+	<style>
+		html, body {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			background-color: #111;
+			overflow: hidden;
+		}
+
+		body.loading #loader {
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		#loader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #232323;
+			opacity: 0;
+			transition: opacity .2s;
+			pointer-events: none;
+		}
+	</style>
+  <script type="module" crossorigin src="/playrix-test/assets/index.485c794e.js"></script>
+  <link rel="modulepreload" href="/playrix-test/assets/vendor.2f30cc89.js">
+  <link rel="stylesheet" href="/playrix-test/assets/index.c8a5a0e0.css">
+</head>
+<body class="loading">
+	<canvas id="scene"></canvas>
+	<div id="loader"></div>
+	
+</body>
+</html>
