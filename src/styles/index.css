@@ -1,11 +1,13 @@
 
 html, body {
 	height: 100%;
+	touch-action: manipulation;
 }
 
 body {
+	display: flex;
+	align-items: center;
 	margin: 0;
-	background-color: #232323;
 	overflow: hidden;
 }
 
@@ -22,10 +24,11 @@ body.loading #loader {
 	bottom: 0;
 	background-color: #232323;
 	opacity: 0;
-	transition: opacity .1s;
+	transition: opacity .3s;
 	pointer-events: none;
 }
 
 #scene {
-	width: 100%;
+	/* max-width: 100%; */
+	margin: 0 auto;
 }

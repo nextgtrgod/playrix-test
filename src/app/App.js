@@ -3,8 +3,9 @@ import { gsap } from 'gsap'
 import Viewport from './helpers/Viewport.js'
 import sources from '@/config/sources.js'
 import Environment from './Environment.js'
-import Controls from './Controls.js'
-import { WIDTH, HEIGHT } from '@/config/scene.js'
+import Menu from './Menu.js'
+import Overlay from './Overlay.js'
+import { WIDTH, HEIGHT, ASPECT } from '@/config/scene.js'
 
 gsap.ticker.remove(gsap.updateRoot)
 
@@ -15,7 +16,7 @@ export default class App {
 
 		PIXI.utils.skipHello()
 
-		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+		// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
 		this.viewport = new Viewport()
 
@@ -24,8 +25,9 @@ export default class App {
 			width: WIDTH,
 			height: HEIGHT,
 			sharedLoader: true,
-			backgroundColor: 0x232323,
-			resolution: this.viewport.pixelRatio,
+			sharedTicker: true,
+			backgroundColor: 0x111111,
+			// resolution: this.viewport.pixelRatio,
 			powerPreference: 'high-performance',
 		})
 
@@ -46,12 +48,13 @@ export default class App {
 		await this.load(sources)
 
 		this.environment = new Environment()
-		this.controls = new Controls()
+		this.menu = new Menu()
+		this.overlay = new Overlay()
 
 		this.scene.stage.addChild(
 			this.environment.container,
-			// this.stairs.container,
-			this.controls.container,
+			this.menu.container,
+			this.overlay.container,
 		)
 
 		this.start()
@@ -62,16 +65,33 @@ export default class App {
 		const W = window.innerWidth
 		const H = window.innerHeight
 
-		this.scene.renderer.resize(W, H)
+		const scale = H / HEIGHT
+		// console.log(scale)
 
-		const scale = W / H >= WIDTH / HEIGHT
-			? W / WIDTH
-			: H / HEIGHT
+		if (W / H > ASPECT) {
+			// console.log('keep aspect')
+			this.scene.renderer.resize(WIDTH * scale, HEIGHT * scale)
+			this.scene.stage.scale.set(scale)
+			this.scene.stage.position.set(0, 0)
+		} else {
+			// console.log('snap to right')
+			this.scene.renderer.resize(W, H)
+			this.scene.stage.scale.set(scale)
 
-		this.scene.stage.scale.set(scale)
+			this.scene.stage.x = W - scale * WIDTH
+			this.scene.stage.y = H - scale * HEIGHT
+		}
 
-		this.scene.stage.x = W - scale * WIDTH
-		this.scene.stage.y = H - scale * HEIGHT
+		// const scale = W / H >= WIDTH / HEIGHT
+		// 	? W / WIDTH
+		// 	: H / HEIGHT
+
+		// console.log(W / H, WIDTH / HEIGHT)
+
+		// this.scene.stage.scale.set(scale)
+
+		// this.scene.stage.x = W - scale * WIDTH
+		// this.scene.stage.y = H - scale * HEIGHT
 	}
 
 	start() {

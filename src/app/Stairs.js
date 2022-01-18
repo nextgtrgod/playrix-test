@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { gsap } from 'gsap'
 import { WIDTH } from '@/config/scene.js'
+import Menu from './Menu.js'
 
 const objects = [
 	{
@@ -25,17 +26,15 @@ export default class Stairs {
 	constructor() {
 		this.loader = PIXI.Loader.shared
 		this.container = new PIXI.Container()
+		this.menu = new Menu()
 
 		this.createStairs()
 		this.setTweens()
 		this.setCurrent(0)
 
-		if (import.meta.env.DEV) {
-			document.addEventListener('keyup', ({ key }) => {
-				if (![1, 2, 3].includes(+key)) return
-				this.setCurrent(+key)
-			})
-		}
+		this.menu.on('select', index => {
+			this.setCurrent(index)
+		})
 	}
 
 	createStairs() {
@@ -50,14 +49,12 @@ export default class Stairs {
 	}
 
 	setTweens() {
-		this.tweens = {}
-
 		const props = {
 			alpha: 0,
 			y: -40,
 		}
 
-		this.tweens.position = gsap.to(
+		const positionTween = gsap.to(
 			props,
 			{
 				y: 0,
@@ -70,7 +67,7 @@ export default class Stairs {
 			}
 		)
 
-		this.tweens.alpha = gsap.to(
+		const alphaTween = gsap.to(
 			props,
 			{
 				alpha: 1,
@@ -82,6 +79,8 @@ export default class Stairs {
 				paused: true,
 			}
 		)
+
+		this.tweens = [ positionTween, alphaTween ]
 	}
 
 	setCurrent(index) {
@@ -94,8 +93,6 @@ export default class Stairs {
 
 		if (index === 0) return
 
-		Object.values(this.tweens).forEach(tween => {
-			tween.restart()
-		})
+		this.tweens.forEach(tween => tween.restart())
 	}
 }
