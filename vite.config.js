@@ -14,7 +14,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@/': path.resolve('/'),
-			// 'pixi.js': path.resolve('/vendor/pixi.js'),
+			'pixi.js': path.resolve('/vendor/pixi.js'),
 		},
 	},
 })

@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js'
 import { gsap } from 'gsap'
 import Menu from './Menu.js'
+import Sizes from './helpers/Sizes.js'
 import { url } from '@/config'
-import { WIDTH, HEIGHT } from '@/config/scene.js'
 
 export default class Overlay {
 	constructor() {
+		this.sizes = new Sizes()
 		this.loader = PIXI.Loader.shared
 		this.container = new PIXI.Container()
 		this.menu = new Menu()
@@ -16,12 +17,13 @@ export default class Overlay {
 		this.setBanner()
 
 		this.menu.on('done', this.show.bind(this))
+		this.sizes.on('resize', this.resize.bind(this))
 	}
 
 	setBackdrop() {
 		const graphics = new PIXI.Graphics()
 		graphics.beginFill(0x000000, .6)
-		graphics.drawRect(0, 0, WIDTH, HEIGHT)
+		graphics.drawRect(0, 0, this.sizes.scene.width, this.sizes.scene.height)
 		graphics.endFill()
 		graphics.on('pointerup', this.hide.bind(this))
 		graphics.alpha = 0
@@ -56,7 +58,8 @@ export default class Overlay {
 	setLogo() {
 		const sprite = new PIXI.Sprite(this.loader.resources['logo'].texture)
 		sprite.anchor.set(0.5)
-		sprite.position.set(32 + sprite.width / 2, 5 + sprite.height / 2)
+		sprite.position.x = this.sizes.scene.offset.x + 32 + sprite.width / 2
+		sprite.position.y = 5 + sprite.height / 2
 		sprite.interactive = true
 		sprite.buttonMode = true
 		sprite.on('pointerup', this.redirect)
@@ -81,6 +84,9 @@ export default class Overlay {
 		this.logo = {
 			sprite,
 			tween,
+			resize: () => {
+				sprite.position.x = this.sizes.scene.offset.x + 32 + sprite.width / 2
+			},
 		}
 
 		this.container.addChild(this.logo.sprite)
@@ -91,7 +97,8 @@ export default class Overlay {
 	setButton() {
 		const sprite = new PIXI.Sprite(this.loader.resources['button'].texture)
 		sprite.anchor.set(0.5)
-		sprite.position.set(1390 / 2, HEIGHT - (sprite.height / 2 + 18))
+		sprite.position.x = (this.sizes.scene.offset.x + this.sizes.scene.width) / 2
+		sprite.position.y = this.sizes.scene.height - (sprite.height / 2 + 18)
 		sprite.interactive = true
 		sprite.buttonMode = true
 		sprite.on('pointerup', this.redirect)
@@ -103,6 +110,9 @@ export default class Overlay {
 				this.phase += delta * 0.06
 				this.sprite.scale.set(1 + 0.02 * Math.sin(this.phase))
 			},
+			resize: () => {
+				sprite.position.x = (this.sizes.scene.offset.x + this.sizes.scene.width) / 2
+			},
 		}
 		PIXI.Ticker.shared.add(this.button.update, this.button)
 
@@ -112,7 +122,8 @@ export default class Overlay {
 	setBanner() {
 		const sprite = new PIXI.Sprite(this.loader.resources['banner'].texture)
 		sprite.anchor.set(0.5)
-		sprite.position.set(WIDTH / 2, 52 + sprite.height / 2)
+		sprite.position.x = (this.sizes.scene.offset.x + this.sizes.scene.width) / 2
+		sprite.position.y = 52 + sprite.height / 2
 		sprite.buttonMode = true
 		sprite.on('pointerup', this.redirect)
 		sprite.alpha = 0
@@ -138,7 +149,10 @@ export default class Overlay {
 			hide() {
 				sprite.interactive = false
 				this.tween.reverse()
-			},	
+			},
+			resize: () => {
+				sprite.position.x = (this.sizes.scene.offset.x + this.sizes.scene.width) / 2
+			},
 		}
 
 		this.container.addChild(this.banner.sprite)
@@ -159,6 +173,8 @@ export default class Overlay {
 	}
 
 	resize() {
-
+		this.logo.resize()
+		this.button.resize()
+		this.banner.resize()
 	}
 }

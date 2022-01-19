@@ -1,18 +1,19 @@
 import * as PIXI from 'pixi.js'
+import EventEmitter from './helpers/EventEmitter.js'
 import { gsap } from 'gsap'
 
-export default class MenuItem {
-	constructor({ index, name, position, onClick } = {}) {
+export default class MenuItem extends EventEmitter {
+	constructor({ index, source, position } = {}) {
+		super()
+
 		this.index = index
-		this.name = name
+		this.source = source
 		this.position = position
-		this.onClick = onClick
 
 		this.loader = PIXI.Loader.shared
 
 		this.container = new PIXI.Container()
-		this.container.position.set(...position)
-
+		this.container.position.set(position.x, position.y)
 		this.container.alpha = 0
 
 		this.selected = false
@@ -22,10 +23,10 @@ export default class MenuItem {
 	}
 
 	setSprite() {
-		this.bg = new PIXI.Sprite(this.loader.resources['menuBg'].texture)
-		this.bg.interactive = true
-		this.bg.buttonMode = true
-		this.container.addChild(this.bg)
+		const bg = new PIXI.Sprite(this.loader.resources['menuBg'].texture)
+		bg.interactive = true
+		bg.buttonMode = true
+		this.container.addChild(bg)
 
 		this.container.pivot.set(this.container.width / 2, this.container.height / 2)
 
@@ -35,15 +36,15 @@ export default class MenuItem {
 		this.selection.alpha = 0
 		this.container.addChild(this.selection)
 
-		this.option = new PIXI.Sprite(this.loader.resources[this.name].texture)
-		this.option.anchor.set(0.5)
-		this.option.position.set(this.container.width / 2, this.container.height / 2 - 6)
+		const option = new PIXI.Sprite(this.loader.resources[this.source].texture)
+		option.anchor.set(0.5)
+		option.position.set(this.container.width / 2, this.container.height / 2 - 6)
 
-		this.container.addChild(this.option)
+		this.container.addChild(option)
 
-		this.bg.on('pointerup', () => {
+		bg.on('pointerup', () => {
 			if (this.selected) return
-			this.onClick(this)
+			this.emit('click')
 		})
 	}
 

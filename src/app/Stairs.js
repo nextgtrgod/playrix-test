@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { gsap } from 'gsap'
-import { WIDTH } from '@/config/scene.js'
+import Sizes from './helpers/Sizes.js'
 import Menu from './Menu.js'
 
 const objects = [
@@ -25,6 +25,7 @@ const objects = [
 export default class Stairs {
 	constructor() {
 		this.loader = PIXI.Loader.shared
+		this.sizes = new Sizes()
 		this.container = new PIXI.Container()
 		this.menu = new Menu()
 
@@ -42,7 +43,7 @@ export default class Stairs {
 			const stair = new PIXI.Sprite(this.loader.resources[name].texture)
 			stair.anchor.set(1, 0)
 			stair.pivot.y = -pivotY
-			stair.position.set(WIDTH, 0)
+			stair.position.set(this.sizes.scene.width, 0)
 			stair.zIndex = 0
 			return stair
 		})

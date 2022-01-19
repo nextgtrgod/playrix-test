@@ -16,7 +16,7 @@ import menu1 from '@/assets/sprites/menu-1.png'
 import menu2 from '@/assets/sprites/menu-2.png'
 import menuBg from '@/assets/sprites/menu-bg.png'
 import menuSelected from '@/assets/sprites/menu-selected.png'
-import menuOk from '@/assets/sprites/menu-ok.png'
+import menuPointer from '@/assets/sprites/menu-pointer.png'
 import logo from '@/assets/sprites/logo.png'
 import button from '@/assets/sprites/button.png'
 import banner from '@/assets/sprites/banner.png'
@@ -40,7 +40,7 @@ const sources = [
 	{ name: 'menu2', path: menu2 },
 	{ name: 'menuBg', path: menuBg },
 	{ name: 'menuSelected', path: menuSelected },
-	{ name: 'menuOk', path: menuOk },
+	{ name: 'menuPointer', path: menuPointer },
 	{ name: 'logo', path: logo },
 	{ name: 'button', path: button },
 	{ name: 'banner', path: banner },
